@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+</head>
+<body>
+<ul></ul>
+
+<script>
+	( function() {
+		var xhr = new XMLHttpRequest(),
+			ul = document.getElementsByTagName( "ul" )[ 0 ];
+
+		xhr.open("GET", "json.txt", true);
+		xhr.onreadystatechange  = function() {
+			if ( xhr.readyState == 4 && xhr.status == 200 ) {
+				var response = eval( '(' + xhr.responseText + ')' ),
+					str = '';
+
+				for ( var i = 0; i < response.project.length; i++ ) {
+					var item = response.project[ i ];
+					str += '<li class="' + item.className + '">';
+					str +=	'<dl>';
+					str +=		'<dt>' + item.lesson + '('+ item.list.length +')</dt>';
+					for ( var j = 0; j < item.list.length; j++ ) {
+						var list = item.list[ j ],
+							index = j + 1;
+						str +=	'<dd>' + index + '.<a href="' + list.url + '">' + list.title + '</a></dd>';
+					}
+					str +=	'</dl>';
+					str += "</li>";
+				}
+
+				ul.innerHTML = str;
+				
+			}
+		}
+		xhr.send();
+	} )();
+</script>
+
+</body>
+</html>

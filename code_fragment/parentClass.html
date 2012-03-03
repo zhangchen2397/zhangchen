@@ -1,0 +1,37 @@
+<script>
+	( function() {
+		var parentClass = function() {
+			this.config = {
+				name: "zhangchen",
+				age: 24
+			};
+			this.addConfig = "addone";
+		};
+		parentClass.prototype = {
+			init: function() {
+				this.subClass = new subClass( this );
+				this.subClass.init();
+			},
+			getName: function() {
+				return this.name;
+			}
+		};
+
+		var subClass = function( parentReference ) {
+			this.config = {
+				company: "alibaba",
+				work: "javascript"
+			};
+			this.parentReference = parentReference;
+		};
+		subClass.prototype = {
+			init: function() {
+				console.log( this.parentReference.config.name );
+				console.log( this.parentReference );
+			}
+		};
+
+		var myClass = new parentClass();
+		myClass.init();
+	} )();
+</script>

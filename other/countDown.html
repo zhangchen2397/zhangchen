@@ -1,0 +1,57 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title> New Document </title>
+<meta name="Generator" content="EditPlus">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+</head>
+
+<body>
+<textarea id="textArea">please input here</textarea>
+<div id="num">10</div>
+
+<script type="text/javascript">
+	(function() {
+		var $ = function(element) {
+			return document.getElementById(element);
+		};
+		var countDown = function() {
+			var textArea = $("textArea");
+			var num = $("num");
+
+			textArea.onclick = function() {
+				if (this.value == "please input here") {
+					this.value = "";
+				}
+			}
+
+			textArea.onblur = function() {
+				if (this.value == "") {
+					this.value = "please input here";
+				}
+			}
+
+			textArea.onkeyup = function(event) {
+				num.innerHTML = parseInt(10 - this.value.length);
+				if (num.innerHTML < 1) {
+					num.innerHTML = "最多可能输入10个字符 ";
+					num.innerHTML += (" 已经超出" + parseInt(this.value.length - 10) + "个字符");
+					//this.value = this.value.substring(0, 11);
+				}
+			}
+			textArea.onmousedown = function(event) {
+				num.innerHTML = parseInt(10 - this.value.length);
+				if (num.innerHTML < 1) {
+					num.innerHTML = "最多可能输入10个字符 ";
+					num.innerHTML += (" 已经超出" + parseInt(this.value.length - 10) + "个字符");
+					//this.value = this.value.substring(0, 11);
+				}
+			}
+		};	
+		countDown();
+	})();
+</script>
+</body>
+</html>

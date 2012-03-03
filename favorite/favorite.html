@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<style>
+#demo {border:1px solid red;width:960px;height:1800px;margin:20px auto;color:red;position:relative;}
+</style>
+<ul id="J-nav">
+	<li><a href="./nvzhang">女装</a></li>
+</ul>
+
+<div><a id="favorite" href="#">加入收藏</a></div>
+
+<div id="demo" class="hello demo book">
+	<div class="content">123</div>
+	<div class="content">456</div>
+	<a href="http://www.baidu.com">baidu.com</a>
+</div>
+<script src="../HTB_beta.js"></script>
+
+<script>
+	( function() {
+		var demoEl = HTB.Dom.$( "demo" );
+		var content = HTB.Dom.getByClassName( "content", "div", demoEl )[ 0 ];
+		console.log( demoEl );
+	} )();
+
+
+
+HTB.widget.favorite = function() {
+	var config = {
+		targetId: "favorite",
+		url:  "http://www.huitaoba.com",
+		title: "惠淘吧 - 会淘 惠淘 慧淘！",
+		excepiton: "请使用CTRL+D收藏惠淘吧，为您提供更好的淘宝购物体验！"
+	};
+	var targetBtn = HTB.Dom.$( config.targetId );
+
+	HTB.Event.addEvent( targetBtn, "click", function( event ) {
+		var event = HTB.Event.getEvent( event );
+		HTB.Event.preventDefault( event );
+		try {
+			window.external.addFavorite(config.url, config.title);
+		} catch( e ) {
+			try{
+				window.sidebar.addPanel(config.title, config.url, "");
+			} catch( e ) {
+				alert( config.excepiton );
+			}
+		}
+	} );
+};
+
+( function() {
+	new HTB.widget.favorite();
+} )();
+
+</script>
+</html>

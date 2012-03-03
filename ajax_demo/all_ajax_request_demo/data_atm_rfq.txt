@@ -1,0 +1,39 @@
+{
+	"resultCode":200,
+	"resultData": {
+		"title":"New Buying Requests",
+		"content": [
+			{ 
+				"country":"us", 
+				"subject":"machine/equipment to produce nylon coil tubes", 
+				"quantity":"230", 
+				"unit":"sets", 
+				"url":"www.alibaba.com/#" 
+			},
+			{
+				"country":"uk", 
+				"subject":"WTB-purchasing wire cage welding machine", 
+				"quantity":"32123", 
+				"unit":"pieces", 
+				"url":"www.alibaba.com/#" 
+			},
+			{ 
+				"country":"au", 
+				"subject":"flex label printing machines", 
+				"quantity":"100", 
+				"unit":"roles", 
+				"url":"www.alibaba.com/#" 
+			}
+		],
+		"regions": {
+			"title":"Popular Regions",
+			"country": [
+				{ "name":"USA", "url":"www.alibaba.com" },
+				{ "name":"UK", "url":"www.alibaba.com" },
+				{ "name":"AU", "url":"www.adlibaba.com" },
+				{ "name":"IND", "url":"www.alibaba.com" }
+			],
+			"more": { "title":"More", "url":"www.alibaba.com" }
+		}
+	}
+}

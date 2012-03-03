@@ -1,0 +1,39 @@
+<script src="http://style.alibaba.com/js/ae.js"></script>
+<script>
+	function mergeObj( defaultObj, customObj ) {
+		for ( var attr in customObj ) {
+			if ( typeof customObj[ attr ] == "object" ) {
+				defaultObj[ attr ] = arguments.callee( defaultObj[ attr ], customObj[ attr ] );
+			} else {
+				defaultObj[ attr ] = customObj[ attr ];
+			}
+		}
+		return defaultObj;
+	}
+
+	function merge( sourceObj, customObj ) {
+		for ( var property in customObj ) {
+			sourceObj[ property ] = customObj[ property ];
+		}
+		return sourceObj;
+	}
+
+	var objA = {
+		person: {
+			name: "zhangsan",
+			age: 24,
+			work: "javascript"
+		},
+		company: "alibaba"
+	};
+	var objB = {
+		person: {
+			name: "lisi",
+			age: 25,
+			work: "java"
+		},
+		company: "baidu"
+	};
+
+	console.log( mergeObj( objA, objB ) );
+</script>
