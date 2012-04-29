@@ -8,9 +8,7 @@ var getXHR = function() {
 			try {
 				xhr = new ActiveXObject( msxml[ i ] );
 				break;
-			} catch( e ) {
-				
-			}
+			} catch( e ) {}
 		}
 	}
 
