@@ -1,0 +1,30 @@
+<textarea id="html-str" style="width:960px; height:400px;">
+	<ul>
+		<li><a href="#">10个javascript语句使用小技巧</a></li>
+		<li><a href="#">HTML简单压缩</a></li>
+		<li><a href="#">推荐给JavaScript开发人员的10个工具</a></li>
+		<li><a href="#">在IE浏览器下对select下拉框通过innerHTML添加option选项无效</a></li>
+		<li><a href="#">深入浅出Javascript原型及原型链继承</a></li>
+	</ul>
+</textarea>
+<p>
+	<button id="compress">压缩</button>
+</p>
+
+<script>
+	function compress( htmlStr ) {
+		return htmlStr.replace( /^\s*/gim, '' )
+					.replace( /\s*$/gim, '' )
+					.replace( />\s*?</gim, '><' )
+					.replace( /[\r\n]/g, '' )
+					.replace( /<!--.*?-->/g, '' );
+	}
+	
+	var htmlStr = document.getElementById( 'html-str' ),
+		compressBtn = document.getElementById( 'compress' ),
+		formatBtn = run = document.getElementById( 'format' );
+
+	compressBtn.onclick = function() {
+		htmlStr.value = compress( htmlStr.value );
+	}
+</script>
