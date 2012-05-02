@@ -1,0 +1,62 @@
+<div id="J-get-data"></div>
+<div id="J-get-data2"></div>
+<script src="http://style.alibaba.com/js/5v/lib/aelite/aelite.js"></script>
+<script src="http://style.alibaba.com/js/5v/lib/yui/get/get.js"></script>
+
+<script>
+	AE.namespace( "run" ).bargainBuys  = ( function( Y, AE ) {
+		var YUD = Y.util.Dom,
+			YUE = Y.util.Event,
+			YL = Y.lang,
+			idx = 0;
+
+		function constructor() {
+			this.config = {
+				requestUrl: 'ajaxGet.html',
+				containor: 'J-get-data'
+			};
+			this.idx = ++idx;
+			this.parseJSON = 'parseJSON' + this.idx;
+		};
+
+		constructor.prototype = {
+			init: function( customConfig ) {
+				this.config = YL.merge( this.config, customConfig || {} );
+				this.renderData();
+				Y.util.Get.script( this.config.requestUrl + '?callback=AE.run.bargainBuys.' + this.parseJSON );
+			},
+
+			renderData: function() {
+				constructor[ this.parseJSON ] = function( instance ) {
+					return function( data ) {
+						instance.data = data;
+						YUD.get( instance.config.containor ).innerHTML = instance.data.totalNum;
+					}
+				}( this )
+			}
+		};
+		
+		return constructor;
+	} )( YAHOO, AE );
+</script>
+
+<script>
+	YUE.onDOMReady( function() {
+		( new AE.run.bargainBuys() ).init();
+
+		( new AE.run.bargainBuys() ).init( {
+			requestUrl: 'ajaxGet2.html',
+			containor: 'J-get-data2'
+		} );
+	} );
+
+	/*
+	AE.namespace( "AE.run.bargainBuys" );
+	AE.run.bargainBuys.parseJSON1 = function( data ) {
+		YUD.get( 'J-get-data' ).innerHTML = data.totalNum;
+	}
+	YUE.onDOMReady( function() { 
+		YAHOO.util.Get.script( 'ajaxGet.html' );
+	} );
+	*/
+</script>
