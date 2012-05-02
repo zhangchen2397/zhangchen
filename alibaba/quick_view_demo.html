@@ -1,0 +1,50 @@
+<script src="http://style.alibaba.com/js/ae.js"></script>
+<script src="http://style.alibaba.com/js/5v/app/quick_view/quick_view.js"></script>
+
+<style>
+	.min-img { width:100px; }
+	.quick-mini-img-box { visibility: hidden; position: absolute; left: 0; top: 0; z-index: 301; }
+	.mask-box { float: left; width: 100px; height: 100px; border: 4px solid #9FD4FE; }
+	.dart-box { float: left; width: 16px; height: 100px; background:transparent url('http://i03.i.aliimg.com/simg/sprites/env/searchweb/list_sprites_rebuild_v5.png') no-repeat scroll  -503px -590px; }
+	.quick-info-box { visibility: hidden; position: absolute; left: 0; top: 0; width: 252px; height: 252px; background-color: #D1E3F5; text-align: center; border: 1px solid #ADCFEA; z-index: 300; }
+	.quick-view-wrap { padding: 8px; border: 1px solid white; }
+	.large-img { width: 200px; height: 200px; background-color: white; padding: 16px; border: 1px solid #4E89C4; }
+</style>
+
+<div id="J-min-img" class="min-img">
+	<img src="http://i01.i.aliimg.com/photo/v5/292960037/SF_MP174G_best_selling_OEM_mp3_player.summ.jpg" />
+</div>
+
+<div id="mini-img-box" class="quick-mini-img-box clearfix">
+	<div id="mini-img-mask-box" class="mask-box"></div>
+	<div id="dart-icon-box" class="dart-box"></div>
+</div>
+<div id="quick-view-box" class="quick-info-box"></div>
+
+<script>
+	var quickViewConfig = {
+		bigImgBoxId      : 'quick-view-box',
+		bigImgPosOffset  : [-2, 0],
+		dartIconBoxId    : 'dart-icon-box',
+		miniImgPosBoxId  : 'mini-img-box',
+		miniImgMaskBoxId : 'mini-img-mask-box',
+		miniImgPosOffset : [-4,-4],
+		closeDelay       : 50,
+		autoClose        : false,
+		verticalAlign    : 'top',
+		closeFireEls     : document.body
+	};
+
+	var iQuickView = new AE.widget.quickView();
+	iQuickView.init( quickViewConfig );
+	iQuickView.setTemplateStr(
+		'<div class="quick-view-wrap clearfix">' +
+			'<div class="large-img">' + 
+				'<img src="http://i01.i.aliimg.com/photo/292960037/SF_MP174G_best_selling_OEM_mp3_player_v5.jpg_200x200.jpg" />' + 
+			'</div>' + 
+		'</div>'
+	);
+	YUE.on('J-min-img', 'click', function (e) {
+		iQuickView.show(this);
+	});
+</script>

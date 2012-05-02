@@ -1,0 +1,58 @@
+<div id="demo1">demo1</div>
+<div id="demo2">demo2</div>
+<div id="demo3">demo3</div>
+<script src="http://style.alibaba.com/js/ae.js"></script>
+<script>
+	( function() {
+		var eventHander = [
+			[ 'demo1', 'click', onDemo1 ],
+			[ 'demo2', 'mouseover', onDemo2 ],
+			[ 'demo3', 'click', onDemo3 ]
+		];
+
+		function initEvent() {
+			for ( var i = 0; i < eventHander.length; i++ ) {
+				YUE.on.apply( YUE, eventHander[ i ] );
+			}
+		}
+
+		initEvent();
+
+		function onDemo1() {
+			console.log( this );
+			console.log( "demo1 worked" );
+		}
+		function onDemo2() {
+			console.log( "demo2 worked" );
+		}
+		function onDemo3() {
+			console.log( "demo3 worked" );
+		}
+	} )();
+</script>
+
+<script>
+	( function() {
+		var functionPool = [
+			function() {
+				console.log( "function1 excuted" );
+			},
+			function() {
+				console.log( "function2 excuted" );
+			},
+			function() {
+				console.log( "function3 excuted" );
+			}
+		];
+
+		function initFunction() {
+			for ( var i = 0; i < functionPool.length; i++ ) {
+				var fn = functionPool[ i ];
+				if ( typeof fn === 'function' ) {
+					fn.call( this );
+				}
+			}
+		}
+		initFunction()
+	} )();
+</script>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>animate object</title>
+<style>
+	body,div{ margin:0;padding:0; }
+	#wrap{ width:500px;margin:10px auto; }
+	.box{ position:relative; height:100px; border:1px solid #666; margin-top:10px; }
+	.box span{ position:absolute; top:10px; left:10px; width:20px; height:20px; background:#999; display:block;opacity:1; }
+</style>
+</head>
+
+<body>
+<div id="wrap">
+    <input type="button" style="width:50px;" value="开始" />
+    <div class="box"><span id="box"></span></div>
+</div>
+
+<script src="../HTB_beta.js"></script>
+<script>
+HTB.widget.animate = function( oConfig ) {
+	this.config = {
+		targetId: oConfig.targetId,
+		options: oConfig.options,
+		callback: oConfig.callback
+	};
+	this.timer = null;
+};
+
+HTB.widget.animate.prototype = {
+	init: function() {
+		var _self = this,
+			config = this.config;
+
+		clearInterval( this.timer );
+		this.timer = setInterval( function () {
+			_self._anim();
+		}, 30)
+	},
+
+	_anim: function() {
+		var _self = this,
+			config = this.config,
+			opt = config.options,
+			isComplete = true,
+			iCur = 0,
+			iSpeed = 0,
+			oElement = HTB.Dom.$( config.targetId ); 
+
+		for ( var attr in opt ) {
+			if ( attr == "opacity" ) {
+				iCur = parseInt( HTB.Dom.getCssAttr( oElement, attr ).toFixed( 2 ) * 100);
+			} else {
+				iCur = HTB.Dom.getCssAttr( oElement, attr );
+			}
+			iSpeed = ( opt[ attr ] - iCur ) / 5;
+			iSpeed = iSpeed > 0 ? Math.ceil( iSpeed ) : Math.floor( iSpeed );
+
+			if ( opt[ attr ] != iCur ) {
+				isComplete = false;
+				HTB.Dom.setCssAttr ( oElement, attr, iCur + iSpeed );
+			}
+		}
+
+		if ( isComplete ) {
+			clearInterval( this.timer );
+			if ( config.callback ) {
+				config.callback();
+			}
+		}
+	}
+};
+
+//运动框架应用
+HTB.Event.addEvent( window, "load", function() {
+	var oInput = HTB.Dom.getByTagName( "input" )[ 0 ],
+		animateConfig = [
+			{ width:20, height:20 },
+			{ width:80, height:80 },
+			{ left:10 }, 
+			{ left:408 },
+			{ opacity: 100 },
+			{ opacity: 0 },
+			{ opacity: 100 },
+			{ width:80, height:80, left:408 },
+			{ top:10 },
+			{ width:20, height:20, left:468 },
+			{ top:70 },
+			{ left:10 },
+			{ top:10 },
+			{ left:468 },
+			{ width:20, height:20, left:468 },
+			{ width:80, height:80, left:408 }
+		],
+		bOrder = true,
+		i = 0;
+
+	oInput.disabled = false;
+
+	HTB.Event.addEvent( oInput, "click", function() {
+		var _self = this;
+		_self.disabled = true;
+
+		var begin = function() {
+			bOrder ? i++ : i--;
+
+			var anim = new HTB.widget.animate( {
+				targetId: "box",
+				options: animateConfig[ i ],
+				callback: begin
+			} );
+			anim.init();
+
+			if ( i == animateConfig.length || i < 0 ) {
+				clearInterval( anim.timer );
+				bOrder = !bOrder;
+				_self.value = bOrder ? "开始" : "返回";
+				_self.disabled = false;
+				return
+			}
+		};
+		begin();
+	} );
+
+	HTB.Event.addEvent( oInput, "focus", function() {
+		this.blur();
+	} );
+} );
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<script>
+	var testObj = ( function() {
+		function constructor ( age, name ) {
+			this.name = name;
+			this.age = age;
+			getAge.call( this );
+		}
+
+		constructor.prototype.getName = function() {
+			return this.name;
+		}
+
+		function getAge () {
+			console.log(this.age);
+		}
+
+		function getName () {
+			console.log(this.age);
+		}
+
+		return constructor;
+	} )();
+
+	var objA = new testObj( 24, 'zhangchen' );
+</script>

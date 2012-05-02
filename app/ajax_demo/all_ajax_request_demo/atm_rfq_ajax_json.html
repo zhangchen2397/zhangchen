@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>demo</title>
+	<link style="text/css" rel="stylesheet" href="http://style.alibaba.com/css/4v/css.css" />
+	<script type="text/javascript" src="http://style.alibaba.com/js/5v/lib/ae/ae.js"></script>
+	<script type="text/javascript" src="http://style.alibaba.com/js/5v/util/json_tpl.js"></script>
+	<script type="text/javascript" src="http://yui.yahooapis.com/2.9.0/build/json/json.js"></script>
+
+	<script type="text/javascript" src="http://style.alibaba.com/js/5v/app/ajax_proxy/ajax_proxy.js"></script>
+	<script type="text/javascript" src="http://style.alibaba.com/js/5v/util/get.js"></script>
+	<script type="text/javascript" src="http://style.alibaba.com/js/5v/util/connection.js"></script>
+	<style>
+		.con-box { width:342px; border:1px solid #C8D4E4; margin:30px auto; }
+		.con-box p { margin:0; }
+		.con-box h3 { font-weight:normal; color:#000000; font-size:12px; background-color:#F1F6F9; height:26px; line-height:26px; padding-left:5px; }
+
+		.buy-request { height:105px; overflow:hidden; }
+		.buy-request ul { list-style:none; padding:2px 8px 0; margin:0; }
+		.buy-request ul li { height:19px; line-height:19px; }
+		.buy-request ul li a { padding:0 18px 0 3px; }
+		.buy-request ul li span { color:#479F48; }
+
+		.buy-request p { color:#CFDCED; padding-left:8px; }
+		.buy-request p span { color:#000000; }
+		.buy-request p a { padding:0 2px; font-size:11px; }
+
+		.buy-request .br-error { padding:15px; }
+	</style>
+</head>
+
+<body>
+
+	<div class="con-box buy-request" id="J-br">
+		loading......
+	</div>
+
+	<!-- list tpl -->
+	<textarea id="list-tpl" style="display:none;">
+		<li>
+			<img src="http://img.alibaba.com/images/common/country/s/{{country}}.gif" />
+			<a href="{{url}}">{{subject}}</a>
+			<span>{{quantity}} {{unit}}</span>
+		</li>
+	</textarea>
+
+	<script>
+		( function() {
+
+			function subStrOmit( str, length ) {
+				if ( str.length > length ) {
+					return str.substring( 0, length ) + "...";
+				} else {
+					return str;
+				}
+			};
+
+			function displayRfq( rfqs ) {
+				var tempHTML = '',
+					buyRequest = YAHOO.util.Dom.get( "J-br" );
+				tempHTML += '<h3>' + rfqs.resultData.title + '</h3>';
+				if ( rfqs.resultData.content.length < 3 ) {
+					tempHTML += '<div class="br-error">';
+					tempHTML +=		'System display abnormal, go to <a href="#">Customized Sourcing</a> to get the latest Buying Requests';
+					tempHTML += '</div>';
+				} else {
+					tempHTML += '<ul>';
+
+					//json template
+					tempHTML += AE.util.jsonTpl( {
+					  tpl: get( "list-tpl" ).value,
+					  array: rfqs.resultData.content
+					} );
+
+					/* 利用传统的html拼接
+					for ( var i = 0; i < rfqs.resultData.content.length; i++ ) {
+						tempHTML +=	'<li>';
+						var item = rfqs.resultData.content[ i ];
+						tempHTML +=		'<img src="http://img.alibaba.com/images/common/country/s/' + item.country + '.gif" />';
+						tempHTML +=		'<a href="' + item.url + '">' + item.subject + '</a>';
+						tempHTML +=		'<span>' + item.quantity + ' ' + item.unit + '</span>';
+						tempHTML +=	'</li>';
+					}
+					*/
+
+					tempHTML +=	'</ul>';
+					tempHTML +=	'<p>';
+					tempHTML +=		'<span>' + rfqs.resultData.regions.title + '</span>';
+					for ( var j = 0; j < rfqs.resultData.regions.country.length; j++ ) {
+						tempHTML +=	'<a href="' + rfqs.resultData.regions.country[ j ].url + '">USA</a> |';
+					}
+					tempHTML +=		'<a href="' + rfqs.resultData.regions.more.url + '">' + rfqs.resultData.regions.more.title + '</a>';
+					tempHTML +=	'</p>';
+				}
+				buyRequest.innerHTML = tempHTML;
+
+				subTitle();
+			};
+
+			function subTitle() {
+				var buyRequest = YAHOO.util.Dom.get( "J-br" ),
+					lists = buyRequest.getElementsByTagName( "li" );
+				for ( var i = 0; i < lists.length; i++ ) {
+					var item = lists[ i ],
+						rfq = item.getElementsByTagName( "a" )[ 0 ],
+						quantity = item.getElementsByTagName( "span" )[ 0 ];
+					rfq.innerHTML = subStrOmit( rfq.innerHTML, 30 );
+					quantity.innerHTML = subStrOmit( quantity.innerHTML, 11 );
+				}
+			};
+			
+			//www.alibaba.com 向 www.alibaba.com 发起请求
+			//同城请求 http://style.alibaba.com/js/5v/util/connection.js
+			/*
+			var responseObj = YAHOO.util.Connect.asyncRequest( 'GET', 'data_atm_rfq.txt', {
+				success: function( o ) {
+					var rfqs = YAHOO.lang.JSON.parse( o.responseText );
+					setTimeout( function() {
+						 displayRfq( rfqs );
+					}, 300 );
+				},
+				timeout: 3000,
+				cache: false
+			} );
+			*/
+	
+			//www.alibaba.com 向 rfq.alibaba.com 发起请求
+			//跨子域请求 http://style.alibaba.com/js/5v/app/ajax_proxy/ajax_proxy.js
+			/*
+			var ap = new AE.run.ajaxProxy(),
+				url = 'http://rfq.alibaba.com:1080/all_ajax_request_demo/data_atm_rfq.txt';
+			ap.asyncRequest( "GET", url, {
+				success: function( o ) {
+					var rfqs = YAHOO.lang.JSON.parse( o.responseText );
+					setTimeout( function() {
+						 displayRfq( rfqs );
+					}, 300 );
+				}
+			}, "", { proxy: "http://rfq.alibaba.com:1080/all_ajax_request_demo/ajax_proxy.html" } );
+			ap = null;
+			*/
+
+			//www.alibaba.com 向 www.rfq.com 发起请求
+			//跨大域请求 http://style.alibaba.com/js/5v/util/get.js
+			YAHOO.util.Get.script("http://www.rfq.com:1080/all_ajax_request_demo/data_atm_rfq.html", {
+				onSuccess: function( obj ) {
+					setTimeout( function() {
+						 displayRfq( window[ "rfqs" ] );
+					}, 300 );
+				},
+				timeout: 3000
+			} );
+
+		} )();
+	
+	</script>
+
+</body>
+</html>
