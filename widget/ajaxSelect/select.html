@@ -1,0 +1,63 @@
+<script src="http://style.alibaba.com/js/5v/lib/aelite/aelite.js"></script>
+<script src="http://style.alibaba.com/js/5v/lib/yui/connection/connection.js"></script>
+<select id="superSelect" name="super">
+	<option value='1'>1</option>
+	<option value='2'>2</option>
+	<option value='3'>3</option>
+	<option value='4'>4</option>
+</select>
+
+<select id="subSelect" name="sub">
+	<option value='0'>0</option>
+	<option value='1'>sub1</option>
+	<option value='2'>sub2</option>
+	<option value='3'>sub3</option>
+	<option value='4'>sub4</option>
+</select>
+
+<select id="subSubSelect" name="subsub">
+	<option value='0'>0</option>
+	<option value='1'>subsub1</option>
+	<option value='2'>subsub2</option>
+	<option value='3'>subsub3</option>
+	<option value='4'>subsub4</option>
+</select>
+
+<script>
+	( function() {
+		var superSelect = YUD.get( 'superSelect' ),
+			subSelect = YUD.get( 'subSelect' ),
+			subSubSelect = YUD.get( 'subSubSelect' );
+
+		function asyncSelect( superSelect, subSelect, requestUrl ) {
+			YAHOO.util.Connect.asyncRequest( "GET", requestUrl, {
+				success: function( obj ) {					
+					for ( var i = 0, len = subSelect.options.length; i < len; i++ ) {
+						var item = subSelect.options[ i ];
+						if ( item.value == obj.responseText ) {
+							item.selected = true;
+						}
+					}
+
+					YAHOO.util.Connect.asyncRequest( "GET", "ajaxSelect2.html", {
+						success: function( obj ) {	
+							console.log( obj.responseText );
+							for ( var i = 0, len = subSubSelect.options.length; i < len; i++ ) {
+								var item = subSubSelect.options[ i ];
+								if ( item.value == obj.responseText ) {
+									item.selected = true;
+								}
+							}
+						}
+					});
+
+				}
+			} );
+		}
+
+		YUE.on( superSelect, 'change', function() {
+			asyncSelect( this, subSelect, 'ajaxSelect.html' );
+		} );
+
+	} )();
+</script>
