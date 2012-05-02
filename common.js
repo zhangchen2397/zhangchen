@@ -176,3 +176,26 @@ if( !Array.prototype.filter ) {
 		return a;
 	} );
 }
+
+function setStyle( elements, prop, value ) {
+	for ( var i = 0, len = elements.length; i < len; i++ ) {
+		document.getElementById( elements[ i ] ).style[ prop ] = value;
+	}
+}
+//setStyle(['foo', 'bar', 'baz'], 'color', 'red');
+//setStyle(['foo'], 'position', 'absolute');
+
+function setCss( element, styles ) {
+	for ( var prop in styles ) {
+		if ( styles.hasOwnProperty( prop ) ) {
+			setStyle( element, prop, styles[ prop ] );
+		}
+	}
+}
+/*
+setCSS( [ 'foo' ], {
+	position: 'absolute',
+	top: '50px',
+	left: '300px'
+} );
+*/
