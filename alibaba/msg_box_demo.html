@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+	<title>msg_box_demo</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="http://style.alibaba.com/css/4v/common.css" />
+	<script type="text/javascript" src="http://style.alibaba.com/js/ae.js"></script>
+	<script type="text/javascript" src="http://style.alibaba.com/js/5v/app/popup/popup.js"></script>
+	<script type="text/javascript" src="http://style.alibaba.com/js/5v/app/iframe_mask/iframe_mask.js"></script>
+
+	<style>
+		.popup-freight { background-color:#ffffff; border:1px solid #86ABE3; }
+		.popup-freight-title, .popup-freight-content, .popup-freight-btn { background-color:#ffffff; padding:0 10px; }
+		.popup-freight-title { background-color:#EAF4F5; height:28px; line-height:28px; font-weight:bold; }
+		.popup-freight-close { position:absolute; top:6px; right:6px; width: 14px; height: 14px; background:url("http://img.alibaba.com/images/eng/suggestion/close_icon.png") no-repeat scroll 0 0 transparent; }
+		.popup-freight-content { padding:10px; }
+		.popup-freight-mask { position:absolute; z-index:-10; top:-8px; left:-8px; background-color:#000000; filter:alpha(opacity=50); opacity:0.5; }
+	</style>
+</head>
+
+<body>
+	<script>
+		( function() {
+			var popupFreight = new AE.widget.popup( {
+					title: 'freight title here',
+					content: '<div>http://www.alibaba.com</div>',
+					size: [400, 0],
+					showClose: true,
+					zIndex: 99999,
+					className: {
+						container: 'popup-freight',
+						title: 'popup-freight-title',
+						content: 'popup-freight-content',
+						button: 'popup-freight-btn',
+						close: 'popup-freight-close'
+					},
+					showMask: true,
+					maskOpacity : 0.1
+				} );
+
+			popupFreight.show();
+
+			var popupFreightContainer = popupFreight.getContainer(),
+				mask = document.createElement( 'div' ),
+				maskWidth = popupFreightContainer.offsetWidth + 14 + 'px',
+				maskHeight = popupFreightContainer.offsetHeight + 14 + 'px';
+
+			YUD.addClass( mask, 'popup-freight-mask' );
+			YUD.setStyle( mask, 'width', maskWidth );
+			YUD.setStyle( mask, 'height', maskHeight );
+			popupFreightContainer.appendChild( mask );
+		} )();
+	</script>
+</body>
+</html>
