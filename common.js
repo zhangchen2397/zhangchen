@@ -96,6 +96,26 @@ function getTextareaValue(elem) {
 }
 
 /**
+ * set the select option's value specify value
+ * @method changeSelection
+ * @para {string} the select's id
+ * @para {string} the value which want to specify
+ * @return boolean
+ */
+function changeSelection( select, value ) {
+	select = HTB.Dom.$( select );
+	
+	for( var i = 0, len = select.options.length; i < len; i++ ) {
+		if ( value == select.options[i].value ) {
+			select.selectedIndex = i;
+			return true;
+		}
+	}
+	
+	return false;
+}
+
+/**
  * ajust the images's width and height
  * if the images's width or height beyond the size we give that show this
  * img src="image" onload="setImgSizeWH(this.src,this,sizew,sizeh)"
