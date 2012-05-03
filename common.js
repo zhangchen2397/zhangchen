@@ -129,9 +129,9 @@ function setImgSizeWH( theURL,sImage,imgW,imgH ) {
 	imgObj = new Image();
 	imgObj.src = theURL;
 	if ( ( imgObj.width != 0 ) && ( imgObj.height != 0 ) ) {	
-		if( imgObj.width > imgW || imgObj.height > imgH ) {			
+		if ( imgObj.width > imgW || imgObj.height > imgH ) {			
 			var iHeight = imgObj.height * imgW / imgObj.width;			
-			if( iHeight <= imgH ) {
+			if ( iHeight <= imgH ) {
 				sImage.width = imgW;
 				sImage.height = iHeight;
 			} else {
@@ -154,7 +154,7 @@ Function.prototype.method = function( name, fn ) {
 	return this;
 };
 
-if( !Array.prototype.forEach ) {
+if ( !Array.prototype.forEach ) {
 	Array.method( 'forEach', function(fn, thisObj ) {
 		var scope = thisObj || window;
 		for ( var i = 0, len = this.length; i < len; ++i ) {
@@ -163,7 +163,7 @@ if( !Array.prototype.forEach ) {
 	} );
 }
 
-if( !Array.prototype.filter ) {
+if ( !Array.prototype.filter ) {
 	Array.method( 'filter', function(fn, thisObj) {
 		var scope = thisObj || window;
 		var a = [];
