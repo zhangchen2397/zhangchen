@@ -1,0 +1,89 @@
+<script>
+/*
+var str = 'zhangchen2397@126.com, luomistar@163.com, .mi.luo@126.com.cn',
+	reg = /\w+\.?\w*@\w+\.?\w*\.\w+/g;
+var reg2 = /\w+[\w\.]*@[\w\.]+\.\w+/g;
+
+console.log( str.match( reg) );
+console.log( str.match( reg2 ) );
+*/
+
+
+//var url = 'http://www.alibaba.com, https://login.alibaba.com, www.alibaba.com, alibaba.com, http://www.alibaba.com.cn, hello1234, .com.cn, zhangchen2397@126.com',
+//	reg = /(https?)?(:\/\/)?\w+[\w\.]*\.\w+\.?\w*/g;
+
+//console.log( url );
+//console.log( url.match( reg ) );
+
+/*
+var date = '2012-04-20, 2012-4-20, 2012-4-8, 2012-13-23, 2012-04-35',
+	reg = /\d{4}-((0?[1-9])|(1[0-2]))-((0?[1-9])|([1-2]\d)|(3[0-1]))/g;
+
+console.log( date );
+console.log( date.match( reg ) );
+*/
+
+/*
+var str = 'luomistar@163.com, <p>test1</p>, <p>test2</p>, zhangchen2397@126.com',
+	reg = /<p>.*<\/p>/g,
+	reg2 = /<p>.*?<\/p>/g;
+
+console.log( str );
+console.log( str.match(reg) );
+console.log( str.match(reg2) );
+*/
+
+/*
+var str = 'zhangchen2397 chen love luo',
+	reg = /chen/g,
+	reg2 = /\bchen\b/g;
+
+console.log( str );
+console.log( str.match(reg) );
+console.log( str.match(reg2) );
+*/
+
+/*
+var str = 'zhangchen2397 &nbsp;&nbsp; chen love luo&nbsp;',
+	reg = /\&nbsp\;{2}/g,
+	reg2 = /(&nbsp;){2}/g;
+
+console.log( str );
+console.log( str.match(reg) );
+console.log( str.match(reg2) );
+*/
+
+/*
+var str = '<h1>title</h1>, luomistar@126.com <p>paragrame</p>, zhangchen2397@126.com <div>div</div>',
+	reg = /<(\w*[1-6]?)>.*<\/\1>/g;
+
+console.log( str );
+console.log( str.match(reg) );
+*/
+
+/*
+var str = 'zhangchen2397@126.com',
+	reg = /(\w+\.?\w*@\w+\.?\w*\.\w+)/gi;
+
+console.log( str );
+console.log( str.match( reg ) );
+console.log( str.replace( reg, '<a href="mailto:$1"></a>' ) );
+*/
+
+/*
+var str = '<title>regular expression</title>',
+	reg = /[^(<title>)].*(?=<\/title>)/gi,
+	//reg2 = /(?<=<title>).*(?=<\/title>)/gi;
+
+console.log( str );
+console.log( str.match( reg ) );
+//console.log( str.match( reg2 ) );
+*/
+
+var str = '(123)-234-456, (123-234-456',
+	reg = /\(?\d{3}\)?(-\d{3}){2}/gi,
+	reg2 = /(\()?\d{3}(?(1)\))-\d{3}-\d{3}/gi;
+
+console.log( str );
+console.log( str.match( reg ) );
+</script>
