@@ -15,6 +15,7 @@
 	function compress( htmlStr ) {
 		return htmlStr.replace( /^\s*/gim, '' )
 					.replace( /\s*$/gim, '' )
+					.replace( />\s*(\w*)\s*</, '>$1<')
 					.replace( />\s*?</gim, '><' )
 					.replace( /[\r\n]/g, '' )
 					.replace( /<!--.*?-->/g, '' );

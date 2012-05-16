@@ -199,3 +199,21 @@ setCSS( [ 'foo' ], {
 	left: '300px'
 } );
 */
+
+//判断对象是否为空
+function isEmptyObject( object ) {
+	var i = 0;
+	for ( var k in object ) {
+		if ( object.hasOwnProperty( k ) ) {
+			i++;
+		}
+	}
+	if ( !i ) {
+		return true;
+	} else {
+		return false;
+	}
+}
+//var b = { a: '1', c: '2' };
+//console.log( isEmptyObject( b ) ); //false
+//console.log( isEmptyObject( {} ) ); //true
