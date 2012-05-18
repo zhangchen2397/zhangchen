@@ -3,19 +3,22 @@
 		<title>Performance Test</title>
 	</head>
 	<body>
-		<div id="container">
-		</div>
+		<div id="container"></div>
 		<script>
-			var iCurrentTime = (new Date()).getTime(),
-				oContainer = document.getElementById('container'),
+			var iCurrentTime = ( new Date() ).getTime(),
+				oContainer = document.getElementById( 'container' ),
 				aTemp = [];
 				
-			for(var i=0; i<50000; i++) {
-				aTemp.push('<div>' + i +'</div>');
+			for ( var i=0; i<50000; i++ ) {
+				aTemp.push( '<div>' + i +'</div>' );
 			}
 			oContainer.innerHTML = aTemp.join('');
 			aTemp = null;
-			alert((new Date()).getTime() - iCurrentTime);
+			try {
+				console.log( ( new Date() ).getTime() - iCurrentTime );
+			} catch( e ) {
+				alert( ( new Date() ).getTime() - iCurrentTime );
+			}
 		</script>
 	</body>
 <html>
