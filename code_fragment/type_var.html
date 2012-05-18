@@ -1,0 +1,157 @@
+<script>
+//判断变量是否声明或已声明，但没赋值的常用方法
+
+//方法1
+if ( !a ) {
+	var a = 'test';
+}
+console.log( a ); //test
+//注意
+if ( !a ) {
+	a = 'test'; //注意此处没有加var
+}
+console.log( a ); //Uncaught ReferenceError: b is not defined
+/*
+ *如果没有加var, 则会报引用的错误
+ *为什么加了var后就没有问题呢？
+ *原因是Javascript解释器的工作方式，它是"先解析，后运行"
+ *方法一的代码实际上可以等价于以下代码
+*/
+var a;
+if ( !a ) {
+	a = 'test';
+}
+console.log( a );
+/*
+ *这是因为var命令具有"代码提升"（hoisting）作用。
+ *Javascript解释器，只"提升"var命令定义的变量
+ *对不使用var命令、直接赋值的变量不起作用
+ */
+
+
+//方法2
+if ( !window.a ) {
+	var a = 'test'; 
+}
+console.log( a ); //test
+/*
+ *这里去掉var，代码也能正常运行
+ *因为这里相当于判断window对象是否有a这个属性
+ *这样可以避免因为没有定义a而导致的错误
+ *但是为了书写规范，定义时都是加上var
+ *不然就造成对全局的污染
+  */
+
+ //方法3 算是最常用的方法了
+if ( typeof a === 'undefined' ) {
+	var a = 'test';
+}
+console.log( a ); //test
+
+
+//方法4
+if ( a === undefined ) {
+	var a = 'test';
+}
+console.log( a );//test
+/*
+ *注意这里的undefined不能加引号
+ *这里比较的是undefined的这种数据类型
+ *同样的道理，这里必须加var, 否则就会报错
+ */
+
+ //方法5
+ if ( !( 'a' in window ) ) {
+	window.a = 'test';
+ }
+ console.log( a ); //test
+ /*
+  *注意这里如果写成 var a = 'test', 结果将是undefined;
+  *原因和前面一样，var命令具有"代码提升"（hoisting）作用
+  *所以if内的语句根本就不会去执行
+  */
+ 
+ //方法6
+ if ( !window.hasOwnProperty( 'a' ) ) {
+	window.a = 'test';
+ }
+ console.log( a ); //test
+ /*
+  *这里如果写成var a = 'test', 结果将是undefined
+  *原因还是一样
+  */
+
+
+var a = 0,
+	b = 'test',
+	c = true,
+	d = [ 1, 2, 3 ],
+	e = function() {},
+	f = undefined,
+	g = null,
+	h = {};
+
+console.log( typeof a ); //number
+console.log( typeof  b );//string
+console.log( typeof  c );//boolean
+console.log( typeof  d );//object
+console.log( typeof  e );//function
+console.log( typeof  f );//undefined
+console.log( typeof  g );//object
+console.log( typeof  h );//object
+
+d instanceof Array //true
+
+
+	
+
+
+
+
+
+
+	/*
+	 *判断对象是否为空
+	function isEmptyObject( object ) {
+		var i = 0;
+		for ( var k in object ) {
+			if ( object.hasOwnProperty( k ) ) {
+				i++;
+			}
+		}
+		if ( !i ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	var b = { a: '1', c: '2' };
+	console.log( isEmptyObject( b ) ); //false
+	console.log( isEmptyObject( {} ) ); //true
+	*/
+
+
+	/*
+	 * 简单if语句判断的简写方法
+	var a = b || c;
+	if ( b ) {
+		var a = b;
+	} else {
+		var a = c;
+	}
+
+	var a = b && c;
+	if ( b ) {
+		var a = c;
+	} else {
+		var a = b;
+	}
+
+	var a = b ? c : d;
+	if ( b ) {
+		var a = c;
+	} else {
+		var a = d;
+	}
+	*/
+</script>
