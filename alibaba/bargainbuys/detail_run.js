@@ -1,5 +1,4 @@
 // #import app/localstorage/localstorage.js
-
 /** 
  * 用于bargain buys活动detail页面运行时相关功能
  * 适用场景：bargain buys活动detail页面
@@ -59,10 +58,12 @@ AE.run.initBagainBuyDetail = {
 	 */
 	init: function( customConfig ) {
 		this.config = YL.merge( this.defaultConfig, customConfig || {} );
+		this.decreasePriceFont();
 		this.renderRelatedPro();
 		this.assembleOrderUrl();
 		this.controlAuthDisplay();
 		this.adjustAuthIcon();
+		this.cutProAttr();
 		this.initEvent();
 		this.getOrderCount();
 		this.lazyImg();
@@ -87,7 +88,10 @@ AE.run.initBagainBuyDetail = {
 		7: 'light',
 		8: 'sport',
 		9: 'toy',
-		10: 'office'
+		10: 'office',
+		11: 'automobiles',
+		12: 'chemicals',
+		13: 'shoes'
 	},
 
 	/** 
@@ -134,7 +138,7 @@ AE.run.initBagainBuyDetail = {
 						var buyCount = shipOrderCount.totalNum + safepayOrderCount.totalNum;
 						if ( buyCount > 0 ) {
 							YUD.get( 'J-buy-count' ).innerHTML = '<p class="buy-count"><span>' + buyCount + '</span> ' + productInfo.moqUnit +  ' bought</p>';
-						} 
+						}
 					} catch( e ) {}
 				},
 				timeout: 10000
@@ -299,7 +303,7 @@ AE.run.initBagainBuyDetail = {
 			_self = this;
 		YUE.on( 'J-btn-order', 'click', function( e ) {
 			YUE.preventDefault( e );
-			_self._dmOrder();
+			AE.biz.clk( "sourcing_assistant_bb" );
 			if ( fn.isLogin() ) {
 				xman_callback( null, null, true );
 			} else {
@@ -343,6 +347,33 @@ AE.run.initBagainBuyDetail = {
 	},
 
 	/** 
+	 * 截取产品属性超出的字符
+	 * @method cutProAttr
+	 * @public
+	 */
+	cutProAttr: function() {
+		var proAttr = YUD.get( 'J-pro-attr' );
+		if ( proAttr ) {
+			var attrList = proAttr.getElementsByTagName( 'li' );
+			for ( var i = 0, len = attrList.length; i < len ; i++ ) {
+				var item = attrList[ i ];
+
+				item.innerHTML = this._subStrOmit( item.innerHTML, 68 );
+			}
+		}
+	},
+
+	decreasePriceFont: function() {
+		var price = YUD.getElementsByClassName( 'price', 'span', 'summary' )[ 0 ],
+			priceToArray = price.innerHTML.split( '.' ),
+			pointNum = priceToArray[ 1 ];
+		if ( pointNum ) {
+			priceAfterPoint = '<span style="font-size:30px;">' + pointNum + '</span>';
+			price.innerHTML = [ priceToArray[ 0 ], priceAfterPoint ].join( '.' );
+		}
+	},
+
+	/** 
 	 * 调查问卷布点
 	 * @method actionSurvey
 	 * @public
@@ -376,8 +407,13 @@ AE.run.initBagainBuyDetail = {
 		}
 	},
 
+	/** 
+	 * 从cookie中获取memberId
+	 * @method _getMemberId
+	 * @private
+	 */
 	_getMemberId: function() {
-		var userCookie = AE.bom.getCookie('ali_apache_track'),
+		var userCookie = AE.util.getCookie('ali_apache_track'),
 			userReg = /mid=[^|]+/;
 
 		if ( userCookie && userReg.test( userCookie ) ) {
@@ -418,16 +454,5 @@ AE.run.initBagainBuyDetail = {
 		} else {
 			return str;
 		}
-	},
-
-	/** 
-	 * order按钮打点
-	 * @method _subStrOmit
-	 * @private
-	 */
-	_dmOrder: function() {
-		var url = "http://stat.alibaba.com";
-			param = { "tracelog": "sourcing_assistant_bb" };
-		dmtrack.clickstat( url, param );
 	}
 };

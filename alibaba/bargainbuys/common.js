@@ -17,7 +17,7 @@
 		
 		//取得用户类型
 		getCookieUserType: function() {
-			var userCookie = AE.bom.getCookie( 'xman_us_f' ), userType;
+			var userCookie = AE.util.getCookie( 'xman_us_f' ), userType;
 			var userReg = /x_user=([^&]+)/;
 			if ( userCookie && userReg.test( userCookie ) ) {
 				userCookie.match( userReg );
@@ -58,7 +58,7 @@
 		
 		//下单前判断是否登录
 		isLogin: function() {
-			var loginFlag = AE.bom.getCookie( 'xman_us_t' );
+			var loginFlag = AE.util.getCookie( 'xman_us_t' );
 			if ( loginFlag.indexOf( 'sign=y' ) != -1 ) {
 				return true;
 			}

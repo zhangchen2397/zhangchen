@@ -71,7 +71,10 @@ AE.run.initBagainBuyList = {
 		'light': 7,
 		'sport': 8,
 		'toy': 9,
-		'office': 10
+		'office': 10,
+		'automobiles': 11,
+		'chemicals': 12,
+		'shoes': 13
 	},
 
 	/** 
@@ -135,7 +138,7 @@ AE.run.initBagainBuyList = {
 				var item = cateItem[ j ],
 					productUrl = config.productUrl + '?id=' + item.id + '&pid=' + item.productId;
 				
-				if ( item.isNew ) {
+				if ( item.isNew == 'true' ) {
 					item.summary += '<img class="new-icon" src="http://img.alibaba.com/images/eng/style/icon/new01_en.gif" />';
 				}
 
@@ -316,7 +319,9 @@ AE.run.initBagainBuyList = {
 		var curHash = decodeURIComponent( this._getUrlParaValue( "subCate" ) );
 		if ( curHash != 'undefined' ) {
 			var hashId = YUD.get( curHash );
-			hashId.scrollIntoView();
+			//定位到锚点上一点的位置
+			window.scrollTo( 0, YUD.getY( hashId ) - 100 );
+			//hashId.scrollIntoView();
 		}
 	},
 
