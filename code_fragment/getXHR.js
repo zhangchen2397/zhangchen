@@ -3,7 +3,7 @@ var getXHR = function() {
 	try {
 		xhr = new XMLHttpRequest();
 	} catch( e ) {
-		var msxml = [ 'MSXML2.XMLHTTP.3.0', 'MSXML2.XMLHTTP', 'Microsoft.XMLTTP' ]; 
+		var msxml = [ 'MSXML2.XMLHTTP.3.0', 'MSXML2.XMLHTTP', 'Microsoft.XMLHTTP' ]; 
 		for ( var i = 0; i < msxml.length; i++ ) {
 			try {
 				xhr = new ActiveXObject( msxml[ i ] );
@@ -13,4 +13,4 @@ var getXHR = function() {
 	}
 
 	return xhr;
-}
+};
