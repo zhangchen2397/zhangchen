@@ -1,0 +1,59 @@
+<script>
+var testStr = 'Shpping cost usually would be affected by&nbsp;&nbsp;&nbsp; time, and specification of goods, etc.';
+var result = testStr.match( /(&nbsp;){2,}/gi );
+console.log( result ); 
+</script>
+
+<script>
+var html = '<h1>回溯引用匹配示例</h1>',
+	regH1 = /<h1>.*<\/h1>/gi;
+	
+var result = html.match( regH1 );
+console.log( result ); //["<h1>回溯引用匹配示例</h1>"] 
+</script>
+
+<script>
+var html = '<h1>回溯引用匹配</h1><h1>这里如果不用"懒惰型"，匹配的结果会有问题</h1>',
+	regH1 = /<h1>.*?<\/h1>/gi;
+	
+var result = html.match( regH1 );
+console.log( result ); //["<h1>回溯引用匹配</h1>", "<h1>这里如果不用"懒惰型"，匹配的结果会有问题</h1>"] 
+</script>
+
+<script>
+var html = '<h1>h1 tag</h1> <h2>h2 tag</h2> <div>div tag</div>',
+	regTag = /<\w+\d?>.*?<\/\w+\d?>/gi;
+	
+var result = html.match( regTag );
+console.log( result ); //["<h1>h1 tag</h1>", "<h2>h2 tag</h2>", "<div>div tag</div>"] 
+</script>
+
+<script>
+var html = '<h1>h1 tag</h1> <h2>h2 tag</h3> <div>div tag</div>',
+	regTag = /<\w+\d?>.*?<\/\w+\d?>/gi;
+	
+var result = html.match( regTag );
+console.log( result ); //["<h1>h1 tag</h1>", "<h2>h2 tag</h3>", "<div>div tag</div>"] 
+</script>
+
+<script>
+var html = '<h1>h1 tag</h1> <h2>h2 tag</h3> <div>div tag</div>',
+	regTag = /<(\w+\d?)>.*?<\/\1>/gi;
+	
+var result = html.match( regTag );
+console.log( result ); //["<h1>h1 tag</h1>", "<div>div tag</div>"] 
+</script>
+
+<script>
+var testStr = 'zhangchen2397@gmail.com',
+	regEmail = /(\w+[\w\.]*@[\w\.]+\.\w+)/gi;
+
+var result = testStr.replace( regEmail, '<a mailto="$1">$1</a>' );
+console.log( result ); //<a mailto="zhangchen2397@gmail.com">zhangchen2397@gmail.com</a> 
+
+var hTab = '<h1>alibaba.com</h1>',
+	regH = /(?<=<h1>).*?(?=<\/h1>)/gi;
+
+var result = hTab.match( regH );
+console.log( result ); //["<h1>alibaba.com"] 
+</script>

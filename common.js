@@ -217,3 +217,18 @@ function isEmptyObject( object ) {
 //var b = { a: '1', c: '2' };
 //console.log( isEmptyObject( b ) ); //false
 //console.log( isEmptyObject( {} ) ); //true
+
+//生成一个n位数的随机数
+function createRandom( n ) {
+	var result = '';
+	for ( var i = 0; i < n; i++ ) {
+		result += Math.floor( Math.random() * 10 );
+	}
+	return result;
+}
+
+//生成一个从lowerValue 到upperValue之间的随机，包括lowerValue及upperValue
+function selectFrom( lowerValue, upperValue ) {
+	var choices = upperValue - lowerValue + 1;
+	return Math.floor( Math.random() * choices + lowerValue );
+}
