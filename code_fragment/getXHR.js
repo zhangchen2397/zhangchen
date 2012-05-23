@@ -14,3 +14,29 @@ var getXHR = function() {
 
 	return xhr;
 };
+
+function getXHR() {
+	var xhr = null;
+	if ( window.XMLHttpRequest ) {
+		xhr = new XMLHttpRequest();
+	} else {
+		try {
+			xhr = new ActiveXObject( 'MSXML2.XMLHTTP' );
+		} catch( e ) {
+			try {
+				xhr = new ActiveXObject( 'Microsoft.XMLHTTP' )
+			} catch( e ) {
+			
+			}
+		}
+	}
+}
+
+xhr.onreadystatechange = function( o ) {
+	if ( xhr.readyState = 4 && xhr.status == 200 ) {
+		var responseObj = o.responseText;
+	}
+}
+
+xhr.open( 'get', 'http://www.alibaba.com', true );
+xhr.send( null );

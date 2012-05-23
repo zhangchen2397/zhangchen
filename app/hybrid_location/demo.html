@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>AE.widget.HybridLocation</title>
+<link rel="stylesheet" type="text/css" href="http://style.alibaba.com/css/4v/common.css"/>
+<link rel="stylesheet" type="text/css" href="http://style.alibaba.com/css/4v/rfq/common/hybrid_location/hybrid_location.css"/> 
+<script type="text/javascript" src="http://style.alibaba.com/js/ae.js"></script>
+<script type="text/javascript" src="http://style.alibaba.com/js/5v/lib/yui/yuiloader/yuiloader.js"></script>
+<script type="text/javascript" src="http://style.alibaba.com/js/5v/app/auto_suggestion/auto_suggestion.js"></script>
+<script type="text/javascript" src="http://style.alibaba.com/js/5v/app/location_select/location_select.js"></script>
+<script type="text/javascript" src="http://style.alibaba.com/js/5v/app/hybrid_location/demo_data.js"></script>
+<script type="text/javascript" src="http://style.alibaba.com/js/5v/app/hybrid_location/hybrid_location.js"></script>
+<!--<script type="text/javascript" src="http://html.elppa.cn/AE/src/location_select/js/location_select.js"></script>
+<script type="text/javascript" src="http://html.elppa.cn/AE/src/auto_suggestion/js/auto_suggestion.js"></script>
+<script type="text/javascript" src="http://html.elppa.cn/AE/src/hybrid_location/js/hybrid_location.js"></script>
+<script type="text/javascript" src="http://html.elppa.cn/AE/src/hybrid_location/assets/demo_data.js"></script>-->
+
+<script>
+	if(!AE.example){
+		AE.example = {};
+	}
+</script>
+<style type="text/css">
+body{
+	padding:30px;
+}
+.hybrid-location-container{
+	float:left;
+	margin-right:4px; 
+}
+</style>
+</head>
+<body  class="yui-skin-sam">
+
+<div  class="clearfix" style="position:relative; z-index:1;">
+<div id="ae-cs-container" class="hybrid-location-container "  style=" z-index:3;">
+  <input type="text" id="ae-ls-input"  class="hybrid-location-input"  /> 
+  <input type="button" id="ae-ls-button" value=" " class="hybrid-location-button" />
+  </div>
+  <div id="ae-cs-container2" class="hybrid-location-container"  style=" z-index:2;">
+  <input type="text" id="ae-ls-input2"  class="hybrid-location-input"  /> 
+  <input type="button" id="ae-ls-button2" value=" " class="hybrid-location-button"/>
+  </div>
+  <div id="ae-cs-container3" class="hybrid-location-container"  style=" z-index:1;">
+  <input type="text" id="ae-ls-input3"  class="hybrid-location-input"  /> 
+  <input type="button" id="ae-ls-button3" value=" " class="hybrid-location-button" />
+  </div>
+ </div>
+<br/>
+<div><header>神圣的下拉框</header><p>ie6下的BUG</p><select><option value="0">test</option></select></div>
+
+
+<script>
+function htmlFormat(oItem){
+	if(oItem.code != ''){
+		return oItem.key + ' ('+oItem.code+')';
+	}else{
+		return oItem.key;
+	}
+}
+var simpleName = 'simple-name';
+var hl1 = new AE.app.HybridLocation(
+	{
+		elContainer:'ae-cs-container',
+		elInput:'ae-ls-input',
+		elButton:'ae-ls-button',
+		jsonData : demoData,
+		locationSelectConfig : {
+			offsetLeft : -1,
+			singletonObjectName : simpleName,
+			headerHtml : 'You can input in or select one',
+			key : 'key',
+			value : 'value',
+			groupKey : 'groupKey',
+			groupValue : 'groupKey'
+		},
+		autoSuggestionConfig : {
+			width : 226,
+			offsetLeft : -1,
+			primaryKey: 'key',
+			keys: ['key', 'code'], 
+			optionHtmlFormat : htmlFormat,
+			warningHtml : '不支持该国家输入！'
+		}
+	});
+var hl2 = new AE.app.HybridLocation( 
+	{
+		elContainer:'ae-cs-container2',
+		elInput:'ae-ls-input2',
+		elButton:'ae-ls-button2',
+		jsonData : demoData,
+		locationSelectConfig : {
+			offsetLeft : -1,
+			singletonObjectName : simpleName,
+			headerHtml : 'You can input in or select one',
+			key : 'key',
+			value : 'value',
+			groupKey : 'groupKey',
+			groupValue : 'groupKey'
+		},
+		autoSuggestionConfig : {
+			width : 226,
+			offsetLeft : -1,
+			primaryKey: 'key',
+			keys: ['key', 'code'], 
+			optionHtmlFormat : htmlFormat,
+			singletonObjectName : simpleName,
+			warningHtml : '不支持该国家输入！'
+		}
+	} );
+
+var hl3 = new AE.app.HybridLocation( 
+	{
+		elContainer:'ae-cs-container3',
+		elInput:'ae-ls-input3',
+		elButton:'ae-ls-button3',
+		jsonData : demoData,
+		locationSelectConfig : {
+			offsetLeft : -100,
+			singletonObjectName : simpleName,
+			headerHtml : 'You can input in or select one',
+			key : 'key',
+			value : 'value',
+			groupKey : 'groupKey',
+			groupValue : 'groupKey'
+		},
+		autoSuggestionConfig : {
+			width : 226,
+			offsetLeft : -1,
+			primaryKey: 'key',
+			keys: ['key', 'code'], 
+			optionHtmlFormat : htmlFormat,
+			warningHtml : '不支持该国家输入！'
+		}
+	} ); 
+ 
+</script>
+
+
+<div id="ae-cs-container4" class="hybrid-location-container ">
+  <input type="text" id="ae-ls-input4"  class="hybrid-location-input"  /> 
+  <input type="button" id="ae-ls-button4" value=" " class="hybrid-location-button"/>
+</div>
+<input type="button" value="Validate" id="btnValidate" />
+<script>
+var loader = new YAHOO.util.YUILoader();
+loader.insert({
+    require: ['event','logger'],
+    base: 'http://style.alibaba.com/js/5v/lib/yui/',
+    filter: 'DEBUG',
+    onSuccess: function(loader) {
+		AE.example.HybridLocation = new function() { 
+			this.oHybridLoc = new AE.app.HybridLocation( 
+			{
+				elContainer:'ae-cs-container4',
+				elInput:'ae-ls-input4',
+				elButton:'ae-ls-button4',
+				jsonData : demoData,
+				locationSelectConfig : {
+					offsetLeft : -1,
+					headerHtml : 'You can input in or select one',
+					key : 'key',
+					value : 'value',
+					groupKey : 'groupKey',
+					groupValue : 'groupKey'
+				},
+				autoSuggestionConfig : {
+					width : 226,
+					offsetLeft : -1,
+					primaryKey: 'key',
+					keys: ['key', 'code'], 
+					optionHtmlFormat : htmlFormat,
+					warningHtml : '不支持该国家输入！'
+				}
+			} ); 
+			this.btnValidate = YUD.get('btnValidate');
+			
+			YUE.on(this.btnValidate ,'click',function(){
+				YAHOO.log( 'validate:' + this.oHybridLoc.validate() ,'info',this.oHybridLoc.toString());
+			},this,true);
+			this.oHybridLoc.itemSelectEvent.subscribe(function(){
+				YAHOO.log( 'itemSelectEvent','info',this.oHybridLoc.toString());
+			}, this, true);
+        	// Put a LogReader on your page
+         	this.myLogReader = new YAHOO.widget.LogReader();
+		 }
+    }
+});
+</script>
+</body>
+</html>
