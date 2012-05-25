@@ -1,4 +1,5 @@
 // #import app/localstorage/localstorage.js
+
 /** 
  * 用于bargain buys活动detail页面运行时相关功能
  * 适用场景：bargain buys活动detail页面
@@ -58,7 +59,6 @@ AE.run.initBagainBuyDetail = {
 	 */
 	init: function( customConfig ) {
 		this.config = YL.merge( this.defaultConfig, customConfig || {} );
-		this.decreasePriceFont();
 		this.renderRelatedPro();
 		this.assembleOrderUrl();
 		this.controlAuthDisplay();
@@ -358,18 +358,8 @@ AE.run.initBagainBuyDetail = {
 			for ( var i = 0, len = attrList.length; i < len ; i++ ) {
 				var item = attrList[ i ];
 
-				item.innerHTML = this._subStrOmit( item.innerHTML, 68 );
+				item.innerHTML = this._subStrOmit( item.innerHTML, 65 );
 			}
-		}
-	},
-
-	decreasePriceFont: function() {
-		var price = YUD.getElementsByClassName( 'price', 'span', 'summary' )[ 0 ],
-			priceToArray = price.innerHTML.split( '.' ),
-			pointNum = priceToArray[ 1 ];
-		if ( pointNum ) {
-			priceAfterPoint = '<span style="font-size:30px;">' + pointNum + '</span>';
-			price.innerHTML = [ priceToArray[ 0 ], priceAfterPoint ].join( '.' );
 		}
 	},
 

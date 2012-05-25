@@ -15,6 +15,7 @@ AE.run.initBagainBuyList = {
 	config: {
 		productUrl: '',
 		requestCateListUrl: '',
+		isTest: false,
 		defaultCate: 'apparel'
 	},
 
@@ -136,7 +137,16 @@ AE.run.initBagainBuyList = {
 			
 			for ( var j = 0, len = cateItem.length; j < len; j++ ) {
 				var item = cateItem[ j ],
-					productUrl = config.productUrl + '?id=' + item.id + '&pid=' + item.productId;
+					productUrl = config.productUrl + '?id=' + item.id + '&pid=' + item.productId,
+					profit = '';
+
+				if ( config.isTest ) {
+					productUrl += '&tracelog=new_profit_' + item.id;
+					profit = '<p class="new_profit">Profits: <span>' + item.estimatedProfits + '%</span></p>';
+				} else {
+					productUrl += '&tracelog=old_profit_' + item.id;
+					profit = '<p class="profit">' + item.estimatedProfits + '%</p>';
+				}
 				
 				if ( item.isNew == 'true' ) {
 					item.summary += '<img class="new-icon" src="http://img.alibaba.com/images/eng/style/icon/new01_en.gif" />';
@@ -145,10 +155,10 @@ AE.run.initBagainBuyList = {
 				tempHTML +=		'<li>';
 				tempHTML +=			'<a href="'+ productUrl +'" target="_blank"><img image-src="'+ item.imageUrl +'" width="215px" height="215px" /></a>';
 				tempHTML +=			'<p class="p-name">' + item.summary + '</p>';
+				tempHTML +=			profit;
 				tempHTML +=			'<p>AliHot Bargains Price: <span>US$' + item.bargainPrice + '</span></p>';
 				tempHTML +=			'<p>Current Retail Price: US$' + item.currentRetailPrice + '</p>';
 				tempHTML +=			'<p>' + item.monthSaleNumber + ' ' + item.orderUnit + ' ordered/month</p>';
-				tempHTML +=			'<p class="profit">' + item.estimatedProfits + '%</p>';
 				tempHTML +=			'<p class="order-btn"><a target="_blank" href="' + productUrl + '">Get it now!</a></p>';
 				tempHTML +=		'</li>';
 			}
