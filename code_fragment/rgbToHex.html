@@ -1,0 +1,23 @@
+<script>
+	function hexToRgb( hex ) {
+		var reg = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})/gi,
+			result = reg.exec( hex );
+
+		return result ? 'rgb(' + parseInt( result[ 1 ], 16 ) + ',' + parseInt( result[ 2 ], 16 )  + ',' + parseInt( result[ 3 ], 16 ) + ')' : '';
+	}
+
+	console.log( hexToRgb( '#fffffa' ) );
+</script>
+
+<script>
+	function componentToHex( c ) {
+		var hex = c.toString( 16 );
+		return c < 10 ? '0' + hex : hex;
+	}
+
+	function rgbToHex( red, green, blue ) {
+		return '#' + componentToHex( red ) + componentToHex( green ) + componentToHex( blue );
+	}
+
+	console.log( rgbToHex( 255, 255, 9 ) );
+</script>

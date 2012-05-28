@@ -1,0 +1,24 @@
+<script>
+	function cloneObj( obj ) {
+		var cloObj = {};
+
+		for ( var key in obj ) {
+			if ( cloObj[ key ] != obj[ key ] ) {
+				if ( typeof obj[ key ] == 'object' ) {
+					cloObj[ key ] = arguments.callee( obj[ key ] );
+				} else {
+					cloObj[ key ] = obj[  key ]
+				}
+			}
+		}
+
+		return cloObj;
+	}
+
+	console.log( {
+		name: 'zhangchen',
+		getName: function() {
+			return this.name;
+		}
+	} );
+</script>
