@@ -1,0 +1,42 @@
+<meta charset="utf-8" />
+<script src="custom_event.js"></script>
+<script>
+	// 从前有个叫zc的家伙
+	var zc = {
+		name: 'zhangchen',
+		// 他会写分享
+		finishShare: function() {
+			this.fire('zc_finish_share');
+		}
+	};
+	 // 使得zc对象具有自定义事件功能。具体实现后面再说明。EventTarget的代码
+	EventTarget.mixin(zc);
+	zc.on('zc_finish_share', function() {
+		alert(this.name + '：Yeah，写好分享了！');
+	});
+	// IT男小a
+	var a = {
+		name: 'IT男小a'
+	};
+	// IT男订阅了zc的分享
+	a.rss = function() {
+		zc.on('zc_finish_share', function() {
+			alert(a.name + '：顶一个！');
+		});
+	};
+	a.rss();
+	// 漂亮mm
+	var mm = {
+		name: '漂亮mm'
+	};
+	// 漂亮mm订阅了zc的分享
+	mm.rss = function() {
+		mm.comment = function() {
+			alert(mm.name + '：哇，好崇拜啊！');
+		};
+		zc.on('zc_finish_share', mm.comment);
+	};
+	mm.rss();
+	// zc写好分享了，IT男和漂亮mm都订阅到了
+	zc.finishShare();
+</script>

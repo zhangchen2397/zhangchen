@@ -232,3 +232,10 @@ function selectFrom( lowerValue, upperValue ) {
 	var choices = upperValue - lowerValue + 1;
 	return Math.floor( Math.random() * choices + lowerValue );
 }
+
+function extend( subClass, superClass ) {
+	var F = function() {};
+	F.prototype = superClass.prototype;
+	subClass.prototype = new F();
+	subClass.prototype.constructor = subClass;
+}
