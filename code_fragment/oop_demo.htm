@@ -1,0 +1,74 @@
+<script>
+	function Person( name, age ) {
+		//private property
+		var privateVar = 'test';
+
+		//private method
+		function genarateId() {
+			//...
+		}
+
+		//privilege property
+		this.name = name;
+		this.age = age;
+
+		//privilege method
+		this.getAge = function() {
+			return this.age;
+		}
+	}
+
+	//public method
+	Person.prototype = {
+		getName: function() {
+			return this.name;
+		}
+	}
+
+	//static method
+	Person.staticMethod = function() {
+		//...
+	}
+
+
+	//采用闭包模拟真正的私有变量
+	( function ( $, export ) {
+		var id = 0,
+			defaultConfig = {
+				name: 'zhangchen',
+				age: 25
+			};
+
+		function queryUrlPara( name ) {
+			//code here
+		}
+
+		function genarateStr() {
+			//code here
+		}
+
+		function Person( config ) {
+			this.id = id++;
+			this.config = YL.merge( defaultConfig, config );
+			this.init.call( this, arguments );
+		}
+
+		Person.prototype = {
+			constructor: Person,
+			init: function() {
+				this.createDom();
+				this.initEvent();
+			},
+
+			createDom: function() {
+				//code here
+			},
+
+			initEvent: function() {
+				//code here
+			}
+		}
+
+		export.Person = Person;
+	} )( jQuery, window );
+</script>
