@@ -15,7 +15,6 @@
  * 	foo.render();
  * </pre>
  * @module EventTarget
- * @author wiky
  * @verson 0.01
  */
 
