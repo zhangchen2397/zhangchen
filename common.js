@@ -177,6 +177,25 @@ if ( !Array.prototype.filter ) {
 	} );
 }
 
+if ( !Array.prototype.indexOf ) {
+	Array.prototype.indexOf = function( str ) {
+		for ( var i = 0, len = this.length; i < len; i++ ) {
+			var item = this[ i ];
+			if ( item == str ) {
+				return i;
+				break;
+			}
+		}
+		return -1;
+	}
+}
+
+if ( !String.prototype.tirm ) {
+	String.prototype.tirm = function() {
+		return this.replace( /^\s*|\s*$/gi, '' );
+	}
+}
+
 function setStyle( elements, prop, value ) {
 	for ( var i = 0, len = elements.length; i < len; i++ ) {
 		document.getElementById( elements[ i ] ).style[ prop ] = value;
