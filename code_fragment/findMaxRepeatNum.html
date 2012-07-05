@@ -1,0 +1,26 @@
+<script>
+	function findRepeatMax( str ) {
+		var maxLength = 0,
+			result = {};
+
+		while( str != '' ) {
+			var oriStr = str,
+				getStr = str.substr( 0, 1 ),
+				str = str.replace( new RegExp( getStr, 'g' ), '' ),
+				repeatLength = oriStr.length - str.length;
+
+			if ( repeatLength > maxLength ) {
+				maxLength = repeatLength;
+				result = {
+					'maxRepeatWord': getStr,
+					'repeatNum': maxLength
+				};
+			}
+		}
+
+		return result;
+	}
+
+	var str ="adadfdfseffserfefsefseeffffftsdg";
+	console.log( findRepeatMax( str ) );
+</script>

@@ -1,0 +1,96 @@
+<script>
+	function selectFrom( lowerValue, upperValue ) {
+		var choices = upperValue - lowerValue + 1;
+		return Math.floor( Math.random() * choices + lowerValue );
+	}
+
+	var testArray = [];
+	for ( var i = 0; i < 100000; i++ ) {
+		testArray.push( selectFrom( 1, 10000 ) );
+	}
+</script>
+
+<script>
+	function delRepeat1( array ) {
+		var a = {},
+			repeat = [],
+			afterDel = [],
+			result = {};
+
+		for ( var i = 0, len = array.length; i < len; i++ ) {
+			if ( a.hasOwnProperty( array[ i ] ) ) {
+				repeat.push( array[ i ] );
+			} else {
+				a[ array[ i ] ] = array[ i ];
+			}
+		}
+
+		for ( var key in a ) {
+			afterDel.push( a[ key ] );
+		}
+
+		result = {
+			'repeat': repeat,
+			'afterDel': afterDel
+		}
+		return result;
+	}
+
+	var now1 = ( new Date() ).getTime();
+	console.log( delRepeat1( testArray ) );
+	console.log( ( new Date() ).getTime() - now1 );
+</script>
+
+<script>
+	function delRepeat2( array ) {
+		var repeat = [],
+			afterDel = [],
+			result = {};
+
+		//indexOf 在IE下数据不支持该方法
+		for ( var i = 0, len = array.length; i < len; i++ ) {
+			if ( afterDel.indexOf( array[ i ] ) == -1 ) {
+				afterDel.push( array[ i ] );
+			} else {
+				repeat.push( array[ i ] );
+			}
+		}
+
+		result = {
+			'repeat': repeat,
+			'afterDel': afterDel
+		}
+		return result;
+	}
+
+	var now2 = ( new Date() ).getTime();
+	console.log( delRepeat2( testArray ) );
+	console.log( ( new Date() ).getTime() - now2 );
+</script>
+
+<script>
+	function delRepeat3( array ) {
+		var repeat = [],
+			afterDel = [ array[ 0 ] ],
+			result = {};
+
+		array.sort();
+		for ( var i = 1, len = array.length; i < len; i++ ) {
+			if ( array[ i ] !== afterDel[ afterDel.length - 1 ] ) {
+				afterDel.push( array[ i ] );
+			} else {
+				repeat.push( array[ i ] ); 
+			}
+		}
+
+		result = {
+			'repeat': repeat,
+			'afterDel': afterDel
+		}
+		return result;
+	}
+
+	var now3 = ( new Date() ).getTime();
+	console.log( delRepeat3( testArray ) );
+	console.log( ( new Date() ).getTime() - now3 );
+</script>

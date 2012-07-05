@@ -1,0 +1,93 @@
+<script>
+	function bubble( array ) {
+		var len = array.length,
+			temp = 0;
+
+		for ( var i = 0; i < len; i++ ) {
+			for ( var j = 0; j < len - 1; j++ ) {
+				if ( array[ j ] > array[ j + 1 ] ) {
+					temp = array[ j ];
+					array[ j ] = array[ j + 1 ];
+					array[ j + 1 ] = temp;
+				}
+			}
+		}
+
+		return array;
+	}
+	
+	console.log( bubble( [ 2, 3, 8, 2, 12, 9, 2, 3, 12, 23, 8, 3 ] ) );
+</script>
+
+<script>
+	function quickSort( array ) {
+		if ( array.length <= 1 ) {
+			return array;
+		}
+
+		var pivotIndex = Math.floor( array.length / 2 ),
+			pivot = array.splice( pivotIndex, 1 )[ 0 ],
+			left = [],
+			right = [];
+
+		for ( var i = 0, len = array.length; i < len; i++ ) {
+			if ( array[ i ] > pivot ) {
+				right.push( array[ i ] );
+			} else {
+				left.push( array[ i ] );
+			}
+		}
+
+		return quickSort( left ).concat( [ pivot ], quickSort( right ) );
+	}
+
+	console.log( quickSort( [ 2, 3, 8, 2, 12, 9, 2, 3, 12, 23, 8, 3 ] ) );
+</script>
+
+<script>
+	function findMax( array ) {
+		var max = array[ 0 ],
+			len = array.length;
+		for ( var i = 0; i < len - 1; i++ ) {
+			if ( array[ i ] > array[ i +1 ]  ) {
+				max = array[ i ];
+				array[ i ] = array[ i + 1 ];
+				array[ i + 1 ] = max;
+			}
+		}
+		return max;
+	}
+
+	console.log( findMax( [ 3, 9, 12, 9, 0, 98, 102, 98, 10000, 980035, 139720, 123, 998 ] ) );
+</script>
+
+<script>
+	function getRepeat( array ) {
+		var repeatArray = [];
+
+		for ( var i = 0, len = array.length; i < len; i++ ) {
+			for ( var j = i + 1; j < len; j++ ) {
+				if ( array[ j ] == array[ i ] ) {
+					var hasExist = false;
+
+					for ( var k = 0; k < repeatArray.length; k++ ) {
+						if ( repeatArray[ k ] == array[ i ] ) {
+							hasExist = true;
+						}
+					}
+					
+					if ( !hasExist ) {
+						repeatArray.push( array[ i ] );
+					}
+				}
+			}
+		}
+
+		return repeatArray;
+	}
+	
+	var testArray = [ 2, 3, 8, 2, 12, 9, 2, 3, 12, 23, 8, 3 ],
+		findRepeat = getRepeat( testArray );
+
+	console.log( findRepeat );
+</script>
