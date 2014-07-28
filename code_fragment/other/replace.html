@@ -1,0 +1,15 @@
+<script>
+	function camel( str ) {
+		var strToArr = str.split( '-' ),
+			result = [ strToArr[ 0 ] ];
+			
+		for ( var i = 1, len = strToArr.length; i < len; i++ ) {
+			var item = strToArr[ i ];
+			result.push( item.substr( 0, 1 ).toUpperCase() + item.substr( 1 ) );
+		}
+
+		return result.join( '' );
+	}
+
+	console.log( camel( 'background-color-zhang-chen' ) );
+</script>

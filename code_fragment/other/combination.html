@@ -1,0 +1,66 @@
+<script>
+	function combination( str ) {
+		var arr = str.split( '' ),
+			len = arr.length,
+			ret = [];
+
+		if ( len == 1 ) {
+			ret = arr;
+		} else if ( len == 2 ) {
+			var a = arr[ 0 ], b = arr[ 1 ];
+			ret = [ a + b, b + a ];
+		} else {
+			for ( var  i = 0; i < len; i++ ) {
+				var tempArr = arr.slice( 0, i ).concat( arr.slice( i + 1, len ) ).join( '' );
+				ret = ret.concat( merge( arr[ i ], arguments.callee( tempArr ) ) );
+			}
+		}
+
+		return ret;
+	}
+
+	function merge( prefix, arr ) {
+		for ( var i = 0, len = arr.length; i < len; i ++ ) {
+			arr[ i ] = prefix + arr[ i ];
+		}
+
+		return  arr;
+	}
+
+	console.log( '全排列' );
+	console.log( combination( 'abc' ) );
+</script>
+
+<script>
+	function angleOutput( arr ) {
+		var row = arr.length,
+			col = arr[ 0 ].length,
+			ret = [];
+
+		for ( var k = 0; k < col * 2 - 1; k++ ) {
+			var diff = col - k - 1;
+			for ( var j = 0; j < col; j++ ) {
+				var i = j - diff;
+				if ( isValidIndex( i, row ) && isValidIndex( j, col ) ) {
+					ret.push( arr[ i ][ j ] );
+				}
+			}
+		}
+
+		return ret;
+	}
+
+	function isValidIndex( i, n ) {
+		return i >= 0 && i < n;
+	}
+
+	var arr = [
+		[ 1, 2, 3, 4 ],
+		[ 5, 6, 7, 8 ],
+		[ 9, 10, 11, 12 ],
+		[ 13, 14, 15, 16 ]
+	];
+
+	console.log( '对角输出' );
+	console.log( angleOutput( arr ) );
+</script>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+ <head>
+  <title> new document </title>
+  <meta name="author" content="">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+ </head>
+
+ <body>
+<script>
+	//数组for in 与 for的区别
+	Array.prototype.max = function()
+	{
+		return Math.max.apply({}, this);
+	};
+
+	var company = ['Adobe','Apple','Google','Intel','Microsoft','Oracle','IBM','SUN'];
+	//console.log(company.length);
+
+	for (var i in company) {
+		//console.log('index is:'+i+'\nvalue is:'+company[i]);
+	}
+
+	var a = {
+		name: 'zhangchen',
+		age: 27
+	};
+
+	for ( var i in a ) {
+		//console.log( 'key is ' + i + '; value is ' + a[ i ] );
+	}
+
+	var foo = function() {};
+	foo.prototype.say = function() {
+		return 'zhangchen';
+	};
+	foo.prototype.age = 28;
+	var bar = new foo();
+	bar.name = 'zhangchen';
+	for ( var i in bar  ) {
+		if ( bar.hasOwnProperty( i ) ) {
+			//console.log( 'key is ' + i + '; value is ' + bar[ i ] );
+		}
+	}
+</script>
+<script>
+	window.onload = function() {
+		console.log('load');
+	}
+</script>
+
+<script>
+	console.log('step2');
+</script>
+
+<script defer>
+	console.log('step1');
+</script>
+ </body>
+</html>

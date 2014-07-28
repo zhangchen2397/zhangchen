@@ -1,0 +1,18 @@
+<script>
+	function namespace( str ) {
+		var strArr = str.split( '.' ),
+			tempObj = window;
+
+		for ( var i = 0, len = strArr.length; i < len; i++ ) {
+			var item = strArr[ i ];
+
+			if ( typeof tempObj[ item ] === 'undefined' ) {
+				tempObj[ item ] = {};
+
+				tempObj = tempObj[ item ];
+			}
+		}
+	}
+
+	console.log( namespace( 'com.baidu.slide' ) );
+</script>

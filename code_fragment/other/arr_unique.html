@@ -1,0 +1,27 @@
+<script>
+    //数组去重，改变原数组
+    Array.prototype.unique = function() {
+        var tempObj = {},
+            prefix = '';
+
+        for ( var i = 0; i < this.length; i++ ) {
+            var item = this[ i ];
+            if ( typeof item == 'string' ) {
+                prefix = 'str'
+            } else {
+                prefix = 'num'
+            }
+
+            if ( tempObj[ prefix + item ] ) {
+                this.splice( i, 1 );
+                i--;
+            } else {
+                tempObj[ prefix + item ] = true;
+            }
+        }
+    }
+
+    var arr = [ 1, 3, '3', 123, 5, 89, '123', 3, 5, '123', 'zhangchen' ];
+    arr.unique();
+    console.log( arr );
+</script>
