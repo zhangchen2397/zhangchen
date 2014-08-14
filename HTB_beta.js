@@ -23,7 +23,7 @@ if ( typeof HTB == "undefined" || !HTB ) {
 HTB.Dom = {
 	/**
 	 * return the HTMLElement by id
-	 * @method $
+	 * @method $ 
 	 * @para {string} id the id name to match against
 	 * @return {HTMLElement} A DOM reference to an HTML element
 	 */
